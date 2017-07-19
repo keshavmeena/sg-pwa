@@ -1,0 +1,120 @@
+<mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed mdl-layout-mode="waterfall" 
+mdl-layout-tab-active-index="{{tabIndex}}" (click)="closeDrawer()" >
+  <mdl-layout-header >
+    <mdl-layout-header-row>
+      <mdl-layout-title >{{title}}</mdl-layout-title>
+      <mdl-layout-spacer></mdl-layout-spacer>
+        
+             
+      
+      <button #editUserButton mdl-button mdl-button-type="raised" mdl-colored="primary"
+        mdl-ripple (click)="editUserDialog.show()">Edit</button>
+           
+
+
+        <mdl-icon>home</mdl-icon>
+
+        <button mdl-button #btn1="mdlButton" (click)="m1.toggle($event, btn1)" mdl-button-type="icon" mdl-ripple><mdl-icon>more_vert</mdl-icon></button>
+           
+    </mdl-layout-header-row>
+  </mdl-layout-header>
+
+  <mdl-layout-drawer   >
+    <mdl-layout-title >Tomtra</mdl-layout-title>
+    <nav class="mdl-navigation">
+      <a routerLink="" class="mdl-navigation__link"><mdl-icon style="padding-right:10px">account_balance</mdl-icon>Risk legal counterpart</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">euro_symbol</mdl-icon>Transactions</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">contact_mail</mdl-icon>Contact us</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">feedback</mdl-icon>Feeback</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">help</mdl-icon>Help</a>
+    </nav>
+  </mdl-layout-drawer>
+  <mdl-layout-content class="demo-content" >
+
+
+      <mdl-layout-tab-panel mdl-layout-tab-panel-title="Recent" (swipeleft)="swipe($event.type)"  (swiperight)="swipe($event.type)" >
+                  <mdl-list *ngFor="let r of rlc; let i=index">
+                    <mdl-list-item lines="2" *ngIf="i<2" (click)="goToLineSituation()" 
+                                ng-mouseover="hoverActive=true"
+                                ng-mouseleave="hoverActive=false"
+                                ng-style="hoverActive ? {'background-color':red} : {}"
+                  >
+                      <mdl-list-item-primary-content >
+                        <mdl-icon mdl-list-item-avatar>account_balance</mdl-icon>
+                        <span>{{r.Name}}</span>
+                        <mdl-list-item-sub-title>Rating {{r.Rating}}</mdl-list-item-sub-title>
+                      </mdl-list-item-primary-content>
+                    </mdl-list-item>
+                  </mdl-list>
+              </mdl-layout-tab-panel>
+         <mdl-layout-tab-panel mdl-layout-tab-panel-title="Fav" (swipeleft)="swipe($event.type)"  (swiperight)="swipe($event.type)" >
+            	<mdl-list *ngFor="let r of rlc ; let i=index" >
+              <mdl-list-item lines="2" *ngIf="i<5" (click)="goToLineSituation()" >
+                <mdl-list-item-primary-content>
+                  <mdl-icon mdl-list-item-avatar>account_balance</mdl-icon>
+                  <span>{{r.Name}}</span>
+                  <mdl-list-item-sub-title>Rating {{r.Rating}}</mdl-list-item-sub-title>
+                </mdl-list-item-primary-content>
+                  <mdl-list-item-secondary-content>
+                    <a href="#"><mdl-icon>star</mdl-icon></a>
+                  </mdl-list-item-secondary-content>
+              </mdl-list-item>
+            </mdl-list>
+         </mdl-layout-tab-panel>
+         <mdl-layout-tab-panel mdl-layout-tab-panel-title="All" (swipeleft)="swipe($event.type)"  (swiperight)="swipe($event.type)" >
+            	<mdl-list *ngFor="let r of rlc">
+              <mdl-list-item lines="2" (click)="goToLineSituation()">
+                <mdl-list-item-primary-content>
+                  <mdl-icon mdl-list-item-avatar>account_balance</mdl-icon>
+                  <span>{{r.Name}}</span>
+                  <mdl-list-item-sub-title>Rating {{r.Rating}}</mdl-list-item-sub-title>
+                </mdl-list-item-primary-content>
+                <mdl-list-item-secondary-content>
+      <a href="#"><mdl-icon>star</mdl-icon></a>
+    </mdl-list-item-secondary-content>
+              </mdl-list-item>
+              
+            </mdl-list>
+         </mdl-layout-tab-panel>
+
+      
+        <router-outlet></router-outlet>
+  </mdl-layout-content>
+</mdl-layout>
+
+<mdl-dialog #editUserDialog
+            [mdl-dialog-config]="{
+              clickOutsideToClose: true,
+              styles:{'width': '300px'},
+              isModal:true,
+              openFrom: editUserButton,
+              enterTransitionDuration: 400,
+              leaveTransitionDuration: 400}"
+           >
+
+
+
+  <h3 class="mdl-dialog__title">Edit User</h3>
+  <div class="mdl-dialog__content">
+
+
+<mdl-checkbox [mdl-ripple]="true" >
+    Checkbox
+  </mdl-checkbox>
+
+
+    <mdl-textfield type="text" label="Username"  floating-label autofocus></mdl-textfield>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button mdl-button (click)="saveUser()" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button>
+    <button mdl-button (click)="editUserDialog.close()" mdl-ripple>Cancel</button>
+  </div>
+</mdl-dialog>
+
+
+        <mdl-menu #m1="mdlMenu" mdl-menu-position="bottom-right">
+              <mdl-menu-item mdl-ripple >Some Action</mdl-menu-item>
+              <mdl-menu-item mdl-ripple mdl-menu-item-full-bleed-divider>Another Action</mdl-menu-item>
+              <mdl-menu-item mdl-ripple disabled>Disabled Action</mdl-menu-item>
+              <mdl-menu-item>Yet Another Action</mdl-menu-item>
+          </mdl-menu> 

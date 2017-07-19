@@ -1,0 +1,10 @@
+
+ 
+.mdl-layout__tab-bar-container .mdl-layout__tab-bar{
+    background-color: rgb(189,189,189);
+}
+
+.mdl-layout__header-row
+{
+    padding: 0 16px 0 52px
+}
